@@ -1,7 +1,8 @@
 def f(l, n, m, line_text)
   # 縦棒ごとに高さ順でソートした配列を持つhashを用意
   amida_tree = AmidaTree.new(l, n, m, line_text)
-  while amida_tree.next
+  loop do
+    break if amida_tree.next.nil?
   end
   amida_tree.current_pos_h
 end
@@ -62,7 +63,7 @@ class AmidaTree
 
   def solve_left
     @sorted_tree[@current_pos_h - 1].delete(@next)
-    @current_pos_v = @next[2]
+    @current_pos_v = @next[1]
     @current_pos_h -= 1
   end
 
