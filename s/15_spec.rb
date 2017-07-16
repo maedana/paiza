@@ -27,38 +27,34 @@ describe 'S-15' do
 end
 
 describe AbcStr do
-  describe 'prepare_text' do
+  describe 'length' do
     subject do
       abc_str = AbcStr.new(k, '1', '2')
-      abc_str.text
+      abc_str.length[k.to_i]
     end
 
     context 'レベル1' do
       let(:k) { '1' }
 
-      # 3
-      it { is_expected.to eq 'ABC' }
+      it { is_expected.to eq 3 }
     end
 
     context 'レベル2' do
       let(:k) { '2' }
 
-      # 9 = ( 3 * 2 + 3 )
-      it { is_expected.to eq 'AABCBABCC' }
+      it { is_expected.to eq 9 }
     end
 
-    context 'レベル2' do
+    context 'レベル3' do
       let(:k) { '3' }
 
-      # 21 = ( 9 * 2 + 3 )
-      it { is_expected.to eq 'AAABCBABCCBAABCBABCCC' }
+      it { is_expected.to eq 21 }
     end
 
-    context 'レベル4' do
-      let(:k) { '4' }
+    context 'レベル100' do
+      let(:k) { '100' }
 
-      # 45 = (21 * 2 + 3)
-      it { is_expected.to eq 'AAAABCBABCCBAABCBABCCCBAAABCBABCCBAABCBABCCCC' }
+      it { is_expected.to eq 3802951800684688204490109616125 }
     end
   end
 end
