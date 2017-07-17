@@ -77,35 +77,6 @@ describe 'S012' do
     end
     it { is_expected.to eq '83' }
   end
-
-  describe '入力例5' do
-    let(:input) do
-      <<~EOS
-        100 20
-        14 1_000_000_000
-        53 100
-        60 64
-        78 82
-        43 45
-        6 7
-        44 45
-        83 98
-        55 58
-        34 34
-        21 37
-        17 73
-        90 98
-        55 62
-        69 76
-        25 73
-        11 89
-        92 94
-        49 53
-        17 17
-      EOS
-    end
-    it { is_expected.to eq '83' }
-  end
 end
 
 describe Highlight do
@@ -142,93 +113,53 @@ describe Highlight do
       EOS
     end
 
-    describe 'パターン1' do
-      context '1回目' do
-        subject do
-          super().highlight(2, 6)
-          super().active_count
-        end
-
-        it { is_expected.to eq 5 }
+    context '1回目' do
+      subject do
+        super().highlight(2, 6)
+        super().actives
       end
 
-      context '2回目' do
-        subject do
-          super().highlight(2, 6)
-          super().highlight(6, 8)
-          super().active_count
-        end
-
-        it { is_expected.to eq 7 }
+      let(:expected) do
+        [
+          [2, 6]
+        ]
       end
 
-      context '3回目' do
-        subject do
-          super().highlight(2, 6)
-          super().highlight(6, 8)
-          super().highlight(3, 4)
-          super().active_count
-        end
-
-        let(:expected) do
-          [
-            [2, 2],
-            [5, 8]
-          ]
-        end
-
-        it { is_expected.to eq expected }
-      end
+      it { is_expected.to eq expected }
     end
 
-    describe 'パターン2' do
-      context '1回目' do
-        subject do
-          super().highlight(1, 6)
-          super().actives
-        end
-
-        let(:expected) do
-          [
-            [1, 6]
-          ]
-        end
-
-        it { is_expected.to eq expected }
+    context '2回目' do
+      subject do
+        super().highlight(2, 6)
+        super().highlight(6, 8)
+        super().actives
       end
 
-      context '2回目' do
-        subject do
-          super().highlight(1, 6)
-          super().highlight(2, 5)
-          super().actives
-        end
-
-        let(:expected) do
-          [
-            [1, 1], [6, 6]
-          ]
-        end
-
-        it { is_expected.to eq expected }
+      let(:expected) do
+        [
+          [2, 8]
+        ]
       end
 
-      context '3回目' do
-        subject do
-          super().highlight(1, 6)
-          super().highlight(2, 5)
-          super().highlight(1, 7)
-          super().actives
-        end
+      it { is_expected.to eq expected }
+    end
 
-        let(:expected) do
-          [
-            [1, 7]
-          ]
-        end
-
-        it { is_expected.to eq expected }
+    context '3回目' do
+      subject do
+        super().highlight(2, 6)
+        super().highlight(6, 8)
+        super().highlight(3, 4)
+        super().actives
       end
+
+      let(:expected) do
+        [
+          [2, 3],
+          [4, 8]
+        ]
+      end
+
+      it { is_expected.to eq expected }
     end
   end
 end
